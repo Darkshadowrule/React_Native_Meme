@@ -1,11 +1,13 @@
 import React from 'react';
 import {View,Text,Image} from 'react-native';
 import firebase from 'firebase';
-import {CardSection,Input, Button, Card} from './common'
+import {Actions} from 'react-native-router-flux'
+import {CardSection,Input, Button, Card, Spinner} from './common'
 import { Constants, ImagePicker, Permissions } from 'expo'
+import uuid from 'uuid'
 
 class CreateCoupon extends React.Component{
-    state={name:"",description:"",loading:"",url:"",uri:"",disp:false}
+    state={name:"",description:"",loading:"",url:"",uri:"",disp:false,loading:false}
   
     uploadPic = async () => {
             let pickerResult = await ImagePicker.launchImageLibraryAsync({
@@ -42,36 +44,67 @@ class CreateCoupon extends React.Component{
        
      async  handleMain()
       { uri=this.state.uri
+        if(uri)
+        {
+        this.setState({loading:true})
         const {name,description}=this.state
-            const blob = await new Promise((resolve, reject) => {
-              const xhr = new XMLHttpRequest();
-              xhr.onload = function() {
-                resolve(xhr.response);
-              };
-              xhr.onerror = function(e) {
-                console.log(e);
-                reject(new TypeError('Network request failed'));
-              };
-              xhr.responseType = 'blob';
-              xhr.open('GET', uri, true);
-              xhr.send(null);
-            });
-            var blobUrl = URL.createObjectURL(blob);  
-            console.log(blobUrl)
-            await firebase.database().ref(`/users/coupons`)
-            .push({name,description,blob})
-            .then(()=>{
-           console.log("save")
+        const blob = await new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function() {
+              resolve(xhr.response);
+            };
+            xhr.onerror = function(e) {
+              console.log(e);
+              reject(new TypeError('Network request failed'));
+            };
+            xhr.responseType = 'blob';
+            xhr.open('GET', uri, true);
+            xhr.send(null);
+          });
+        
+          const ref = firebase
+            .storage()
+            .ref()
+            .child(uuid.v4());
+          const snapshot = await ref.put(blob);
+          blob.close();
+         var imgUrl=await snapshot.ref.getDownloadURL()
+          firebase.database().ref(`/users/coupons`)
+     .push({name,description,imgUrl})
+    .then(()=>{
+        this.setState({loading:false})
+        Actions.couponList()
+     console.log("save")
    }).catch((e)=>{
      console.log(e)
+     this.setState({loading:false})
    })
-            blob.close();
-          }
-       
-
+ }}
+    renderLoad()
+    {
+        if(this.state.loading)
+        {
+            return(
+                <CardSection>
+                   <Spinner size="small"/>
+                </CardSection>
+                
+            )
+        }
+        else{
+            return(
+                <CardSection >
+                     <Button onPress={this.handleMain.bind(this)}>
+                  Save Coupon
+                </Button>
+                </CardSection>
+              
+            )
+        }
+    }
     render(){
 
-     console.log(this.state.uri)
+     console.log(this.state.url)
         return(
             <View>
             <CardSection>
@@ -95,12 +128,8 @@ class CreateCoupon extends React.Component{
                  Upload Image
                 </Button>
             </CardSection>
-            <CardSection >
-                <Button onPress={this.handleMain.bind(this)}>
-                  Save Coupon
-                </Button>
-            </CardSection> 
             
+                {this.renderLoad()}
                   
             </View>
         )
