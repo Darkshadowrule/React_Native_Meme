@@ -1,6 +1,6 @@
 import React from 'react';
-import {View,Text} from 'react-native';
-import firebase from 'firebase';
+import {FlatList} from 'react-native';
+import ItemList from './ItemList'
 import _ from 'lodash'
 
 
@@ -16,11 +16,11 @@ class ItemRender extends React.Component{
     render()
     { console.log(this.state.data)
         return(
-            <View>
-                <Text>
-                    hiii
-                </Text>
-            </View>
+            <FlatList
+                data={this.state.data}
+                renderItem={({ item }) => <ItemList data={item} />}
+                keyExtractor={item => item.name+item.imgUrl}
+            />
         )
     }
 }

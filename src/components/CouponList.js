@@ -5,8 +5,6 @@ import _ from 'lodash'
 import ItemRender from './ItemRender'
 import { Spinner } from './common';
 
-
-
 class CouponList extends React.Component{
     state={data:{},newData:{},loading:false}
  componentDidMount()
