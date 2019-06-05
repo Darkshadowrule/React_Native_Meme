@@ -7,7 +7,7 @@ import { Constants, ImagePicker, Permissions } from 'expo'
 import uuid from 'uuid'
 
 class CreateCoupon extends React.Component{
-    state={name:"",description:"",loading:"",url:"",uri:"",disp:false,loading:false}
+    state={name:"",description:"",loading:"",url:"",uri:"",disp:false,loading:false,load:false}
   
     uploadPic = async () => {
             let pickerResult = await ImagePicker.launchImageLibraryAsync({
@@ -22,8 +22,9 @@ class CreateCoupon extends React.Component{
             try {
         
               if (!pickerResult.cancelled) {
-                this.setState({ uri: pickerResult.uri ,disp:true});
+                this.setState({ uri: pickerResult.uri ,disp:true,load:false});
               }
+              
             } catch (e) {
               console.log(e);
               alert('Upload failed, sorry :(');
@@ -31,7 +32,7 @@ class CreateCoupon extends React.Component{
           };
 
        handleDisp()
-       {
+       { 
            if(this.state.disp)
            {
                return(
@@ -72,14 +73,16 @@ class CreateCoupon extends React.Component{
           firebase.database().ref(`/users/coupons`)
      .push({name,description,imgUrl})
     .then(()=>{
-        this.setState({loading:false})
+        this.setState({loading:false,load:true})
         Actions.couponList()
      console.log("save")
    }).catch((e)=>{
      console.log(e)
      this.setState({loading:false})
    })
- }}
+ }
+ this.setState({load:true})
+}
     renderLoad()
     {
         if(this.state.loading)
@@ -91,14 +94,28 @@ class CreateCoupon extends React.Component{
                 
             )
         }
-        else{
+        else {
             return(
                 <CardSection >
                      <Button onPress={this.handleMain.bind(this)}>
-                  Save Coupon
+                  Post
                 </Button>
                 </CardSection>
               
+            )
+        }
+    }
+    isUpload()
+    {
+        if(this.state.load)
+        {
+            return(
+                <CardSection style={{alignContent: 'center',justifyContent:'center'}}>
+                    <Text style={{fontSize:18,color:'red'}}>
+                    Please Upload Image
+                </Text>
+                </CardSection>
+               
             )
         }
     }
@@ -128,7 +145,7 @@ class CreateCoupon extends React.Component{
                  Upload Image
                 </Button>
             </CardSection>
-            
+                {this.isUpload()}
                 {this.renderLoad()}
                   
             </View>
