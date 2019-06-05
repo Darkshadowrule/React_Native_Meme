@@ -17,18 +17,6 @@ class App extends React.Component{
       appId: "1:622346516560:web:05421a47288c050c"
     };
     firebase.initializeApp(firebaseConfig);
-//     firebase.database().ref(`/users/coupons`)
-//     .push({"title":"xyz","url":"yyyy"})
-//     .then(()=>{
-//     console.log("save")
-//   }).catch((e)=>{
-//     console.log(e)
-//   })
-//   firebase.database().ref(`/users/coupons`)
-//     .on('value',snapshot =>
-//     {
-//       console.log(snapshot.val())
-//     })
 }
   render()
   {

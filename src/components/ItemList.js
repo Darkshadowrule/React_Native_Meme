@@ -1,6 +1,8 @@
 import React from 'react';
-import {Text,View,Image,StyleSheet} from 'react-native'
+import {Text,Image,StyleSheet,YellowBox} from 'react-native'
 import { CardSection,Card } from './common';
+
+YellowBox.ignoreWarnings(['Setting a timer']);
 
 class ItemList extends React.Component{
     render()

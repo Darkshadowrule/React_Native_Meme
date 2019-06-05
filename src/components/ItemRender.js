@@ -1,8 +1,10 @@
 import React from 'react';
-import {FlatList,View} from 'react-native';
+import {FlatList,View,YellowBox} from 'react-native';
 import ItemList from './ItemList'
 import _ from 'lodash'
 
+
+YellowBox.ignoreWarnings(['Setting a timer']);
 
 class ItemRender extends React.Component{
     state={data:{},refresh:false,refreshing:false}
@@ -37,7 +39,7 @@ class ItemRender extends React.Component{
                 extraData={this.state.refresh}
                 refreshing={this.state.refreshing}
                 onRefresh={this.handleRefresh}
-                initialNumToRender={3}
+               
             />
         )
     }

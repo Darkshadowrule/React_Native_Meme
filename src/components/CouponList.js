@@ -1,10 +1,12 @@
 import React from 'react';
-import {View,Text} from 'react-native';
+import {View,YellowBox} from 'react-native';
 import firebase from 'firebase';
 import _ from 'lodash'
 import ItemRender from './ItemRender'
 import { Spinner } from './common';
 
+
+YellowBox.ignoreWarnings(['Setting a timer']);
 class CouponList extends React.Component{
     state={data:{},newData:{},loading:false}
  componentDidMount()

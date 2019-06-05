@@ -1,10 +1,12 @@
 import React from 'react';
-import {View,Text,Image} from 'react-native';
+import {View,Text,Image,YellowBox} from 'react-native';
 import firebase from 'firebase';
 import {Actions} from 'react-native-router-flux'
 import {CardSection,Input, Button, Card, Spinner} from './common'
-import { Constants, ImagePicker, Permissions } from 'expo'
+import { ImagePicker, Permissions } from 'expo'
 import uuid from 'uuid'
+
+YellowBox.ignoreWarnings(['Setting a timer']);
 
 class CreateCoupon extends React.Component{
     state={name:"",description:"",loading:"",url:"",uri:"",disp:false,loading:false,load:false}
@@ -73,14 +75,17 @@ class CreateCoupon extends React.Component{
           firebase.database().ref(`/users/coupons`)
      .push({name,description,imgUrl})
     .then(()=>{
-        this.setState({loading:false})
+        this.setState({loading:false,load:false})
         Actions.couponList()
      console.log("save")
    }).catch((e)=>{
      console.log(e)
-     this.setState({loading:false})
+     this.setState({loading:false,load:true})
    })
  }
+else{
+    this.setState({load:true})
+}
 
 }
     renderLoad()
