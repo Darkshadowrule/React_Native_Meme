@@ -11,7 +11,8 @@ class ItemRender extends React.Component{
         const newData=_.map(this.props.data,(val,key)=>{
             return {...val,key}
         })
-        this.setState({data:newData})
+        let newData1=_.reverse(newData)
+        this.setState({data:newData1})
     }
     render()
     { console.log(this.state.data)
