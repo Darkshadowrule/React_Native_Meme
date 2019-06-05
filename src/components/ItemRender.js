@@ -1,11 +1,11 @@
 import React from 'react';
-import {FlatList} from 'react-native';
+import {FlatList,View} from 'react-native';
 import ItemList from './ItemList'
 import _ from 'lodash'
 
 
 class ItemRender extends React.Component{
-    state={data:{}}
+    state={data:{},refresh:false,refreshing:false}
     componentDidMount()
     {
         const newData=_.map(this.props.data,(val,key)=>{
@@ -14,6 +14,18 @@ class ItemRender extends React.Component{
         let newData1=_.reverse(newData)
         this.setState({data:newData1})
     }
+    renderSeperator()
+    {
+        return(
+            <View
+            style={{height:10,width:'100%',backgroundColor:'black'}}>
+
+            </View>
+        )
+    }
+    handleRefresh = () => {
+		this.setState({ refresh: true,resfreshing:true });
+	}
     render()
     { console.log(this.state.data)
         return(
@@ -21,6 +33,10 @@ class ItemRender extends React.Component{
                 data={this.state.data}
                 renderItem={({ item }) => <ItemList data={item} />}
                 keyExtractor={item => item.name+item.imgUrl}
+                ItemSeparatorComponent={this.renderSeperator}
+                extraData={this.state.refresh}
+                refreshing={this.state.refreshing}
+				onRefresh={this.handleRefresh}
             />
         )
     }

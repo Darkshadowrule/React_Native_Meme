@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text,View,Image} from 'react-native'
+import {Text,View,Image,StyleSheet} from 'react-native'
 import { CardSection,Card } from './common';
 
 class ItemList extends React.Component{
@@ -12,9 +12,14 @@ class ItemList extends React.Component{
          <Image style ={{height:330,width:null,flex:1}} source={{uri:imgUrl}}/>
         </CardSection>
         <CardSection>
-            <Text style={{fontSize:20}}>{name}</Text>
-            <Text style ={{fontSize:18}}>{description}</Text>
-
+        <Text style={styles.baseText}>
+        <Text style={styles.titleText} onPress={this.onPressTitle}>
+          {name||"Unknown User"}{'\n'}{'\n'}
+        </Text>
+        <Text numberOfLines={7}>
+          {description||"No Description"}
+        </Text>
+      </Text>         
         </CardSection>
 
 
@@ -25,4 +30,20 @@ class ItemList extends React.Component{
         )
     }
 }
+    const styles = StyleSheet.create({
+        baseText: {
+          fontStyle: 'italic',
+          fontSize:18
+        },
+        titleText: {
+          fontSize: 20,
+          fontWeight: 'bold',
+        },
+        headerContentStyle: {
+            flexDirection: 'column',
+            justifyContent: 'space-around',
+            flex: 1,
+            flexWrap: 'wrap'
+        }
+      });
 export default ItemList

@@ -86,7 +86,7 @@ class CreateCoupon extends React.Component{
         {
             return(
                 <CardSection>
-                   <Spinner size="small"/>
+                   <Spinner size="large"/>
                 </CardSection>
                 
             )
@@ -109,15 +109,15 @@ class CreateCoupon extends React.Component{
             <View>
             <CardSection>
              <Input
-             label="Title"
-             placeholder="Coupon Name"
+             label="Name"
+             placeholder="Prajjwal"
              onChangeText={text=>this.setState({name:text})}
              value={this.state.name}/>
             </CardSection>
             <CardSection>
                 <Input
                 label="Description"
-                placeholder="Add Coupon Description"
+                placeholder="Add Description here"
                 value={this.state.description}
                 onChangeText={text=>this.setState({description:text})}
                 />

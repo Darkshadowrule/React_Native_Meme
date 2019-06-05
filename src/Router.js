@@ -6,9 +6,9 @@ const RouterComponent = () =>{
     return(
         <Router>
             <Stack key="root">
-            <Scene key="couponList" component={CouponList} title="Coupons List"   onRight={()=> Actions.couponCreate()}
-        rightTitle="Add" initial />
-            <Scene key="couponCreate" component={CreateCoupon} title="Add a Coupon" />
+            <Scene key="couponList" component={CouponList} title="Your Posts"   onRight={()=> Actions.couponCreate()}
+        rightTitle="Add a post" initial />
+            <Scene key="couponCreate" component={CreateCoupon} title="Add a Post" />
             </Stack>
             
         </Router>
