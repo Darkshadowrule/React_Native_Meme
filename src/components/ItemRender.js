@@ -29,7 +29,7 @@ class ItemRender extends React.Component{
 		this.setState({ refresh: true,resfreshing:true });
 	}
     render()
-    { console.log(this.state.data)
+    {
         return(
             <FlatList
                 data={this.state.data}
@@ -38,6 +38,7 @@ class ItemRender extends React.Component{
                 ItemSeparatorComponent={this.renderSeperator}
                 extraData={this.state.refresh}
                 refreshing={this.state.refreshing}
+                ListFooterComponent={this.renderSeperator}
                 onRefresh={this.handleRefresh}
                
             />

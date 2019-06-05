@@ -27,7 +27,7 @@ class CouponList extends React.Component{
      }
      else{
          return(
-            <View style={{marginTop:30,justifyContent:'center',alignContent:'center'}}>
+            <View style={{marginTop:270}}>
              <Spinner size="large"/>
              </View>
          )
