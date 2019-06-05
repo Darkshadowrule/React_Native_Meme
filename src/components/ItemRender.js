@@ -18,7 +18,7 @@ class ItemRender extends React.Component{
     {
         return(
             <View
-            style={{height:10,width:'100%',backgroundColor:'black'}}>
+            style={{height:4,width:'100%',backgroundColor:'black'}}>
 
             </View>
         )
@@ -36,7 +36,8 @@ class ItemRender extends React.Component{
                 ItemSeparatorComponent={this.renderSeperator}
                 extraData={this.state.refresh}
                 refreshing={this.state.refreshing}
-				onRefresh={this.handleRefresh}
+                onRefresh={this.handleRefresh}
+                initialNumToRender={3}
             />
         )
     }

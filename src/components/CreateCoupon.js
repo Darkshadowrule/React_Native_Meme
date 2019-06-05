@@ -73,7 +73,7 @@ class CreateCoupon extends React.Component{
           firebase.database().ref(`/users/coupons`)
      .push({name,description,imgUrl})
     .then(()=>{
-        this.setState({loading:false,load:true})
+        this.setState({loading:false})
         Actions.couponList()
      console.log("save")
    }).catch((e)=>{
@@ -81,7 +81,7 @@ class CreateCoupon extends React.Component{
      this.setState({loading:false})
    })
  }
- this.setState({load:true})
+
 }
     renderLoad()
     {

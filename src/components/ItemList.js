@@ -16,7 +16,7 @@ class ItemList extends React.Component{
         <Text style={styles.titleText} onPress={this.onPressTitle}>
           {name||"Unknown User"}{'\n'}{'\n'}
         </Text>
-        <Text numberOfLines={7}>
+        <Text numberOfLines={10} style={{color:'blue'}}>
           {description||"No Description"}
         </Text>
       </Text>         
@@ -33,11 +33,13 @@ class ItemList extends React.Component{
     const styles = StyleSheet.create({
         baseText: {
           fontStyle: 'italic',
-          fontSize:18
+          fontSize:18,
+          
         },
         titleText: {
           fontSize: 20,
           fontWeight: 'bold',
+          color:'red'
         },
         headerContentStyle: {
             flexDirection: 'column',
